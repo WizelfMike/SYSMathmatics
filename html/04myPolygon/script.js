@@ -4,18 +4,37 @@ const context = canvas.getContext('2d');
 const width = window.innerWidth;
 const height = window.innerHeight;
 
-canvas.width = width;
-canvas.height = height;
-
-let myArray = [];
-
-let background = new GraphBackground();
+let Points = [];
+let numberOfPoints = 4;
 
 canvas.width = width;
 canvas.height = height;
 
-background.draw();
+let background = new GraphBackGround();
 
-let point = new Point(500,500,50, "yellow", true);
+for(let i=0; i<numberOfPoints; i++){
+    let point = new Point(Math.random()*width,Math.random()*height,15,"red",true);
+    points.push(point);
+}
 
-point.draw();
+animate();
+
+function animate(){
+    requestAnimationFrame(animate);
+    context.clearRect(0,0,width,height);
+    background.draw();
+    for(let i=0; i<numberOfPoints; i++){
+        points[i].draw();
+    }
+
+    context.beginPath();
+    context.fillStyle = "rgba(255,255,0,0.4)";
+    context.moveTo(points[0].x,points[0].y);
+    for(let i=0; i<numberOfPoints;i++){
+        context.lineTo(points[i].x,points[i].y);
+    }
+    context.closePath();
+    context.stroke();
+    context.fill();
+}
+
